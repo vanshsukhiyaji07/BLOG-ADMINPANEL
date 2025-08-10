@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Blog Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/modern-admin.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-cube"></i>
+                <span>Blog Admin</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item active">
+                    <a href="/admin/dashboard" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/view-admin" class="nav-link">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Manage Admins</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/category/view-category" class="nav-link">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/blog/view-blog" class="nav-link">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Blog Posts</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/change-password" class="nav-link">
+                        <i class="fas fa-key"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">Dashboard</h1>
+            </div>
+            <div class="nav-right">
+                <div class="user-menu">
+                    <div class="user-info">
+                        <img src="<%= admin && admin.profileImage ? admin.profileImage : '/uploads/admins/seed-default.png' %>" alt="Profile" class="user-avatar">
+                        <span class="user-name"><%= admin ? admin.firstName + ' ' + admin.lastName : 'Admin' %></span>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="/admin/change-password" class="dropdown-item">
+                            <i class="fas fa-key"></i> Change Password
+                        </a>
+                        <a href="/admin/logout" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number" id="adminCount">0</h3>
+                        <p class="stat-label">Admin Users</p>
+                    </div>
+                    <div class="stat-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Active</span>
+                    </div>
+                </div>
+
+                <div class="stat-card success">
+                    <div class="stat-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number" id="categoryCount">0</h3>
+                        <p class="stat-label">Categories</p>
+                    </div>
+                    <div class="stat-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Organized</span>
+                    </div>
+                </div>
+
+                <div class="stat-card warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number" id="blogCount">0</h3>
+                        <p class="stat-label">Blog Posts</p>
+                    </div>
+                    <div class="stat-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Published</span>
+                    </div>
+                </div>
+
+                <div class="stat-card info">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number" id="totalViews">0</h3>
+                        <p class="stat-label">Total Views</p>
+                    </div>
+                    <div class="stat-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Growing</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h3 class="section-title">Quick Actions</h3>
+                <div class="actions-grid">
+                    <a href="/admin/add-admin" class="action-card">
+                        <div class="action-icon primary">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h4>Add Admin</h4>
+                        <p>Create new admin account</p>
+                    </a>
+                    
+                    <a href="/category/add-category" class="action-card">
+                        <div class="action-icon success">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <h4>Add Category</h4>
+                        <p>Create new blog category</p>
+                    </a>
+                    
+                    <a href="/blog/add-blog" class="action-card">
+                        <div class="action-icon warning">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <h4>Create Post</h4>
+                        <p>Write new blog post</p>
+                    </a>
+                    
+                    <a href="/admin/view-admin" class="action-card">
+                        <div class="action-icon info">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Manage Users</h4>
+                        <p>View and edit admins</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <h3 class="section-title">Recent Activity</h3>
+                <div class="activity-list" id="activityList">
+                    <!-- Activity items will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/assets/js/modern-admin.js"></script>
+</body>
+</html>
+    

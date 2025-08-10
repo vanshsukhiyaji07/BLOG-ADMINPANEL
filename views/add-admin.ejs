@@ -1,0 +1,577 @@
+<%- include('modern-header') %>
+
+<div class="page-header">
+  <h1 class="page-title">Add New Admin</h1>
+  <p class="page-subtitle">Create a new administrator account</p>
+  <div class="page-actions">
+    <a href="/admin/view-admin" class="btn btn-outline-secondary">
+      <i class="fas fa-arrow-left"></i>
+      Back to Admin List
+    </a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Admin Information</h3>
+        <p class="card-subtitle">Fill in the details for the new administrator</p>
+      </div>
+      <div class="card-body">
+        <form action="/admin/add-admin" method="POST" enctype="multipart/form-data" id="add-admin-form">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="firstName" class="form-label">First Name *</label>
+                <input type="text" id="firstName" name="firstName" class="form-control" required>
+                <div class="form-feedback"></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lastName" class="form-label">Last Name *</label>
+                <input type="text" id="lastName" name="lastName" class="form-control" required>
+                <div class="form-feedback"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email" class="form-label">Email Address *</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+                <div class="form-feedback"></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact" class="form-label">Contact Number *</label>
+                <input type="tel" id="contact" name="contact" class="form-control" required>
+                <div class="form-feedback"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="gender" class="form-label">Gender *</label>
+                <select id="gender" name="gender" class="form-control" required>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                <div class="form-feedback"></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="hobby" class="form-label">Hobby</label>
+                <input type="text" id="hobby" name="hobby" class="form-control" placeholder="e.g., Reading, Sports, Music">
+                <div class="form-feedback"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" name="description" class="form-control" rows="4" placeholder="Tell us about this admin..."></textarea>
+            <div class="form-feedback"></div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="password" class="form-label">Password *</label>
+                <div class="password-input">
+                  <input type="password" id="password" name="password" class="form-control" required>
+                  <button type="button" class="password-toggle" id="password-toggle">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+                <div class="form-feedback"></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="confirmPassword" class="form-label">Confirm Password *</label>
+                <div class="password-input">
+                  <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+                  <button type="button" class="password-toggle" id="confirm-password-toggle">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+                <div class="form-feedback"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="avatar" class="form-label">Profile Picture</label>
+            <div class="file-upload">
+              <input type="file" id="avatar" name="avatar" class="file-input" accept="image/*">
+              <div class="file-upload-content">
+                <div class="file-upload-icon">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="file-upload-text">
+                  <span class="file-upload-title">Choose a file or drag it here</span>
+                  <span class="file-upload-subtitle">PNG, JPG, GIF up to 5MB</span>
+                </div>
+              </div>
+              <div class="file-preview" id="file-preview"></div>
+            </div>
+            <div class="form-feedback"></div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-user-plus"></i>
+              Create Admin Account
+            </button>
+            <button type="reset" class="btn btn-outline-secondary">
+              <i class="fas fa-undo"></i>
+              Reset Form
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Form Guidelines</h3>
+      </div>
+      <div class="card-body">
+        <div class="guidelines">
+          <div class="guideline-item">
+            <div class="guideline-icon">
+              <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="guideline-content">
+              <h4>Required Fields</h4>
+              <p>Fields marked with * are mandatory for account creation.</p>
+            </div>
+          </div>
+          
+          <div class="guideline-item">
+            <div class="guideline-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="guideline-content">
+              <h4>Password Security</h4>
+              <p>Use a strong password with at least 8 characters, including numbers and symbols.</p>
+            </div>
+          </div>
+          
+          <div class="guideline-item">
+            <div class="guideline-icon">
+              <i class="fas fa-image"></i>
+            </div>
+            <div class="guideline-content">
+              <h4>Profile Picture</h4>
+              <p>Upload a clear, professional photo. Recommended size: 200x200 pixels.</p>
+            </div>
+          </div>
+          
+          <div class="guideline-item">
+            <div class="guideline-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="guideline-content">
+              <h4>Email Verification</h4>
+              <p>The email address will be used for login and password recovery.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-primary);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: all var(--transition-normal);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-control.error {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-control.success {
+  border-color: var(--success);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+.form-feedback {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  min-height: 1.25rem;
+}
+
+.form-feedback.error {
+  color: var(--danger);
+}
+
+.form-feedback.success {
+  color: var(--success);
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color var(--transition-normal);
+}
+
+.password-toggle:hover {
+  color: var(--text-primary);
+}
+
+.file-upload {
+  border: 2px dashed var(--border-primary);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+}
+
+.file-upload:hover {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-upload-content {
+  pointer-events: none;
+}
+
+.file-upload-icon {
+  font-size: 3rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.file-upload-title {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.file-upload-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.file-preview {
+  margin-top: 1rem;
+  display: none;
+}
+
+.file-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+  border: 1px solid var(--border-primary);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-primary);
+}
+
+.guidelines {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.guideline-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.guideline-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.guideline-content h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.guideline-content p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.card-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .guideline-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .guideline-icon {
+    align-self: center;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('add-admin-form');
+  const passwordToggle = document.getElementById('password-toggle');
+  const confirmPasswordToggle = document.getElementById('confirm-password-toggle');
+  const passwordInput = document.getElementById('password');
+  const confirmPasswordInput = document.getElementById('confirmPassword');
+  const avatarInput = document.getElementById('avatar');
+  const filePreview = document.getElementById('file-preview');
+  
+  // Password toggle functionality
+  passwordToggle.addEventListener('click', () => {
+    const type = passwordInput.type === 'password' ? 'text' : 'password';
+    passwordInput.type = type;
+    passwordToggle.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+  });
+  
+  confirmPasswordToggle.addEventListener('click', () => {
+    const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
+    confirmPasswordInput.type = type;
+    confirmPasswordToggle.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+  });
+  
+  // File upload preview
+  avatarInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          filePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+          filePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      } else {
+      showNotification('Please select a valid image file', 'error');
+      avatarInput.value = '';
+    }
+    }
+  });
+  
+  // Form validation
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Clear previous feedback
+    clearFormFeedback();
+    
+    let isValid = true;
+    
+    // Validate required fields
+    const requiredFields = ['firstName', 'lastName', 'email', 'contact', 'gender', 'password', 'confirmPassword'];
+    requiredFields.forEach(field => {
+      const input = document.getElementById(field);
+      if (!input.value.trim()) {
+        showFieldError(input, 'This field is required');
+        isValid = false;
+      }
+    });
+    
+    // Validate email format
+    const email = document.getElementById('email');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email.value && !emailRegex.test(email.value)) {
+      showFieldError(email, 'Please enter a valid email address');
+      isValid = false;
+    }
+    
+    // Validate password match
+    if (passwordInput.value !== confirmPasswordInput.value) {
+      showFieldError(confirmPasswordInput, 'Passwords do not match');
+      isValid = false;
+    }
+    
+    // Validate password strength
+    if (passwordInput.value && passwordInput.value.length < 8) {
+      showFieldError(passwordInput, 'Password must be at least 8 characters long');
+      isValid = false;
+    }
+    
+    if (isValid) {
+      // Show loading state
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+      submitBtn.disabled = true;
+      
+      // Submit form
+      form.submit();
+    }
+  });
+  
+  // Real-time validation
+  const inputs = form.querySelectorAll('input, select, textarea');
+  inputs.forEach(input => {
+    input.addEventListener('blur', () => {
+      validateField(input);
+    });
+    
+    input.addEventListener('input', () => {
+      clearFieldFeedback(input);
+    });
+  });
+  
+  function validateField(input) {
+    const value = input.value.trim();
+    
+    if (input.hasAttribute('required') && !value) {
+      showFieldError(input, 'This field is required');
+      return false;
+    }
+    
+    if (input.type === 'email' && value) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        showFieldError(input, 'Please enter a valid email address');
+        return false;
+      }
+    }
+    
+    if (input.id === 'password' && value && value.length < 8) {
+      showFieldError(input, 'Password must be at least 8 characters long');
+      return false;
+    }
+    
+    if (input.id === 'confirmPassword' && value && passwordInput.value !== value) {
+      showFieldError(input, 'Passwords do not match');
+      return false;
+    }
+    
+    showFieldSuccess(input);
+    return true;
+  }
+  
+  function showFieldError(input, message) {
+    input.classList.add('error');
+    const feedback = input.parentNode.querySelector('.form-feedback');
+    feedback.textContent = message;
+    feedback.className = 'form-feedback error';
+  }
+  
+  function showFieldSuccess(input) {
+    input.classList.remove('error');
+    input.classList.add('success');
+    const feedback = input.parentNode.querySelector('.form-feedback');
+    feedback.textContent = '✓ Valid';
+    feedback.className = 'form-feedback success';
+  }
+  
+  function clearFieldFeedback(input) {
+    input.classList.remove('error', 'success');
+    const feedback = input.parentNode.querySelector('.form-feedback');
+    feedback.textContent = '';
+    feedback.className = 'form-feedback';
+  }
+  
+  function clearFormFeedback() {
+    inputs.forEach(input => {
+      input.classList.remove('error', 'success');
+      const feedback = input.parentNode.querySelector('.form-feedback');
+      feedback.textContent = '';
+      feedback.className = 'form-feedback';
+    });
+  }
+  
+  // Add ripple effect to buttons
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      btn.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+  });
+});
+</script>
+
+<%- include('modern-footer') %> 

@@ -1,0 +1,162 @@
+<%- include('../header') -%>
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+  <%- include('../navbar') -%>
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Add Blog</h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <div class="container">
+                <form action="/blog/insert-blog-data" method="POST" enctype="multipart/form-data" id="blogForm">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="input-group input-group-outline my-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" name="title" id="title" class="form-control" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="input-group input-group-outline my-3">
+                        <label class="form-label">Author</label>
+                        <input type="text" name="authorName" class="form-control" value="<%= admin ? admin.firstName + ' ' + admin.lastName : 'Admin' %>">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group input-group-outline my-3">
+                        <select name="category" id="category" class="form-control" required>
+                          <option value="">Select Category</option>
+                          <% if (categories && categories.length > 0) { %>
+                            <% for (let cat of categories) { %>
+                              <option value="<%= cat.id %>"><%= cat.name %></option>
+                            <% } %>
+                          <% } %>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="input-group input-group-outline my-3">
+                        <label class="form-label">Excerpt (optional)</label>
+                        <textarea name="excerpt" id="excerpt" class="form-control" rows="3" placeholder="Brief summary of your blog post..."></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="input-group input-group-outline my-3 w-100">
+                        <textarea name="content" id="content" class="form-control" rows="10" placeholder="Write your blog content..." required></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="input-group input-group-outline my-3">
+                        <input type="file" name="blogImage" id="blogImage" class="form-control">
+                      </div>
+                      <div id="imagePreview" class="my-2" style="max-width: 240px;"></div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="input-group input-group-outline my-3">
+                            <label class="form-label">Status</label>
+                            <select name="status" id="status" class="form-control">
+                              <option value="draft">Draft</option>
+                              <option value="published">Published</option>
+                              <option value="scheduled">Scheduled</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-12" id="publishDateGroup" style="display:none;">
+                          <div class="input-group input-group-outline my-3">
+                            <label class="form-label">Publish Date</label>
+                            <input type="datetime-local" name="publishDate" id="publishDate" class="form-control">
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="input-group input-group-outline my-3">
+                            <label class="form-label">Tags (comma separated)</label>
+                            <input type="text" name="tags" id="tags" class="form-control" placeholder="tag1, tag2, tag3">
+                          </div>
+                        </div>
+                        <div class="col-md-12 d-flex align-items-center my-2">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="featured" name="featured" value="1">
+                            <label class="form-check-label" for="featured">Featured post</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Publish</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<script>
+  $(function(){
+    $('#content').summernote({
+      height: 300,
+      toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'italic', 'clear']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['insert', ['link', 'picture', 'video']],
+        ['view', ['fullscreen', 'codeview']]
+      ]
+    });
+
+    $('#status').on('change', function(){
+      const show = this.value === 'scheduled';
+      document.getElementById('publishDateGroup').style.display = show ? 'block' : 'none';
+    });
+
+    $('#blogImage').on('change', function(e){
+      const file = e.target.files[0];
+      const preview = document.getElementById('imagePreview');
+      if (!preview) return;
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(ev){
+          preview.innerHTML = '<img src="'+ev.target.result+'" alt="Preview" class="img-fluid rounded">';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.innerHTML = '';
+      }
+    });
+
+    document.getElementById('blogForm').addEventListener('submit', function(e){
+      const title = document.getElementById('title').value.trim();
+      const category = document.getElementById('category').value;
+      if (!title || !category) {
+        e.preventDefault();
+      }
+    });
+  });
+</script>
+<%- include('../footer') -%>

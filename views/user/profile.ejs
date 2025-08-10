@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>User Profile - Blog Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f5f6fa;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            width: 100%;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #000000;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+
+
+        /* Main Content */
+        .main-content {
+            width: 100%;
+            padding: 40px 20px;
+            background: #f5f6fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* User Profile Section */
+        .profile-section {
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #000000;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-avatar-placeholder {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #000000, #333333);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #000000;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-avatar-placeholder i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .profile-info h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 8px;
+        }
+
+        .profile-info p {
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .profile-info i {
+            color: #000000;
+            margin-right: 8px;
+        }
+
+        /* Blog Section */
+        .blog-section {
+            margin-top: 40px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #1a202c;
+            border-left: 4px solid #000000;
+            padding-left: 16px;
+            letter-spacing: -1px;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        @media (max-width: 1200px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+
+
+        .blog-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(60, 72, 88, 0.07);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.2s, transform 0.2s;
+            border: 1px solid #ececec;
+        }
+
+        .blog-card:hover {
+            box-shadow: 0 8px 32px rgba(60, 72, 88, 0.13);
+            transform: translateY(-4px) scale(1.01);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #e5e7eb;
+        }
+
+        .blog-content {
+            padding: 20px 20px 16px 20px;
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            color: #1a202c;
+            line-height: 1.3;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .blog-title:hover {
+            color: #000000;
+        }
+
+        .blog-meta {
+            font-size: 0.93rem;
+            color: #6b7280;
+            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .blog-meta .category {
+            color: #000000;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .blog-excerpt {
+            color: #444;
+            font-size: 1rem;
+            margin-bottom: 18px;
+            flex: 1 1 auto;
+        }
+
+        .read-more {
+            display: inline-block;
+            background: #000000;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 6px;
+            padding: 8px 18px;
+            text-decoration: none;
+            font-size: 0.98rem;
+            transition: background 0.2s;
+            margin-top: auto;
+        }
+
+        .read-more:hover {
+            background: #2563eb;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #888;
+            padding: 60px 0;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+
+        .view-all-btn {
+            display: inline-block;
+            background: #000000;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.2s;
+            margin-top: 20px;
+        }
+
+        .view-all-btn:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="/user/profile" class="logo">
+                <i class="fas fa-blog"></i>
+                Blog Admin
+            </a>
+            <nav class="nav-links">
+                <a href="/user/profile" class="nav-link">
+                    <i class="fas fa-home me-1"></i>Home
+                </a>
+                <a href="/user/blogs" class="nav-link">
+                    <i class="fas fa-newspaper me-1"></i>All Blogs
+                </a>
+                <a href="/user/logout" class="nav-link">
+                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- User Profile Section -->
+            <div class="profile-section">
+                <div class="profile-header">
+                    <% if (user.profileImage) { %>
+                        <img src="<%= user.profileImage %>" alt="Profile Image" class="profile-avatar">
+                        <% } else { %>
+                            <div class="profile-avatar-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <% } %>
+                                <div class="profile-info">
+                                    <h1>
+                                        <%= user.name %>
+                                    </h1>
+                                    <p><i class="fas fa-envelope"></i>
+                                        <%= user.email %>
+                                    </p>
+                                    <p><i class="fas fa-calendar"></i>Member since <%= new
+                                            Date(user.createdAt).toLocaleDateString() %>
+                                    </p>
+                                </div>
+                </div>
+            </div>
+
+            <!-- Blog Section -->
+            <div class="blog-section">
+                <h2 class="section-title">Recent Blogs</h2>
+                <% if (blogs && blogs.length> 0) { %>
+                    <div class="blog-grid">
+                        <% blogs.slice(0, 6).forEach(function(blog) { %>
+                            <div class="blog-card">
+                                <% if (blog.blogImage) { %>
+                                    <img src="<%= blog.blogImage %>" class="blog-image" alt="Blog Image">
+                                    <% } else { %>
+                                        <div class="blog-image"
+                                            style="display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">
+                                            <i class="fas fa-image"></i>
+                                        </div>
+                                        <% } %>
+                                            <div class="blog-content">
+                                                <a href="/user/blogs/<%= blog._id %>" class="blog-title">
+                                                    <%= blog.title %>
+                                                </a>
+                                                <div class="blog-meta">
+                                                    <span class="category"><i class="fas fa-tag"></i>
+                                                        <%= blog.category ? blog.category.name : 'Uncategorized' %>
+                                                    </span>
+                                                    <span><i class="fas fa-calendar-alt"></i>
+                                                        <%= new Date(blog.createdAt).toLocaleDateString() %>
+                                                    </span>
+                                                    <span><i class="fas fa-user"></i>
+                                                        <%= blog.author ? blog.author.name : blog.authorName %>
+                                                    </span>
+                                                </div>
+                                                <div class="blog-excerpt">
+                                                    <%= blog.content.substring(0, 110) %>...
+                                                </div>
+                                                <a href="/user/blogs/<%= blog._id %>" class="read-more">Read More</a>
+                                            </div>
+                            </div>
+                            <% }); %>
+                    </div>
+                    <% if (blogs.length> 6) { %>
+                        <div class="text-center">
+                            <a href="/user/blogs" class="view-all-btn">
+                                <i class="fas fa-list me-2"></i>View All Blogs
+                            </a>
+                        </div>
+                        <% } %>
+                            <% } else { %>
+                                <div class="empty-state">
+                                    <i class="fas fa-newspaper"></i>
+                                    <h4>No blogs available yet</h4>
+                                    <p>Start exploring amazing content!</p>
+                                </div>
+                                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

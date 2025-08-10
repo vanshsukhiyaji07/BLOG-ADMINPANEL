@@ -1,0 +1,298 @@
+<%- include('../modern-header') %>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="header-content">
+                    <div class="header-text">
+                        <h2 class="page-subtitle">Create New Admin</h2>
+                        <p class="page-description">Add a new administrator to help manage your blog platform</p>
+                    </div>
+                    <div class="header-actions">
+                        <a href="/admin/view-admin" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Admins
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Container -->
+            <div class="form-container">
+                <div class="form-card">
+                    <form action="/admin/insert-admin-data" method="POST" enctype="multipart/form-data" id="adminForm">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <!-- Personal Information -->
+                                <div class="form-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-user"></i>
+                                        Personal Information
+                                    </h3>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="firstName" class="form-label">First Name *</label>
+                                                <input type="text" id="firstName" name="firstName" class="form-control" required>
+                                                <div class="form-help">Enter the admin's first name</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="lastName" class="form-label">Last Name *</label>
+                                                <input type="text" id="lastName" name="lastName" class="form-control" required>
+                                                <div class="form-help">Enter the admin's last name</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email Address *</label>
+                                        <input type="email" id="email" name="email" class="form-control" required>
+                                        <div class="form-help">This will be used for login and notifications</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" id="phone" name="phone" class="form-control">
+                                        <div class="form-help">Optional contact number</div>
+                                    </div>
+                                </div>
+
+                                <!-- Account Security -->
+                                <div class="form-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-shield-alt"></i>
+                                        Account Security
+                                    </h3>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="password" class="form-label">Password *</label>
+                                                <div class="password-input-group">
+                                                    <input type="password" id="password" name="password" class="form-control" required>
+                                                    <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="form-help">Minimum 8 characters, include numbers and symbols</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="confirmPassword" class="form-label">Confirm Password *</label>
+                                                <div class="password-input-group">
+                                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+                                                    <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="form-help">Re-enter the password to confirm</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="securityQuestion" class="form-label">Security Question</label>
+                                        <select id="securityQuestion" name="securityQuestion" class="form-select">
+                                            <option value="">Select a security question</option>
+                                            <option value="pet">What was your first pet's name?</option>
+                                            <option value="city">In which city were you born?</option>
+                                            <option value="school">What was your first school's name?</option>
+                                            <option value="car">What was your first car's model?</option>
+                                        </select>
+                                        <div class="form-help">Optional: helps with account recovery</div>
+                                    </div>
+
+                                    <div class="form-group" id="securityAnswerGroup" style="display: none;">
+                                        <label for="securityAnswer" class="form-label">Security Answer</label>
+                                        <input type="text" id="securityAnswer" name="securityAnswer" class="form-control">
+                                        <div class="form-help">Answer to your security question</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <!-- Admin Settings -->
+                                <div class="form-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-cog"></i>
+                                        Admin Settings
+                                    </h3>
+                                    
+                                    <div class="form-group">
+                                        <label for="role" class="form-label">Admin Role *</label>
+                                        <select id="role" name="role" class="form-select" required>
+                                            <option value="">Select Role</option>
+                                            <option value="super">Super Admin</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="moderator">Moderator</option>
+                                            <option value="editor">Editor</option>
+                                        </select>
+                                        <div class="form-help">Determines access level and permissions</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="status" class="form-label">Account Status</label>
+                                        <select id="status" name="status" class="form-select">
+                                            <option value="active">Active</option>
+                                            <option value="inactive">Inactive</option>
+                                        </select>
+                                        <div class="form-help">Control account accessibility</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="permissions" class="form-label">Permissions</label>
+                                        <div class="permissions-list">
+                                            <div class="permission-item">
+                                                <input type="checkbox" id="permBlogs" name="permissions[]" value="blogs" checked>
+                                                <label for="permBlogs">Manage Blogs</label>
+                                            </div>
+                                            <div class="permission-item">
+                                                <input type="checkbox" id="permCategories" name="permissions[]" value="categories" checked>
+                                                <label for="permCategories">Manage Categories</label>
+                                            </div>
+                                            <div class="permAdmins" name="permissions[]" value="admins">
+                                                <input type="checkbox" id="permAdmins" name="permissions[]" value="admins">
+                                                <label for="permAdmins">Manage Admins</label>
+                                            </div>
+                                            <div class="permission-item">
+                                                <input type="checkbox" id="permUsers" name="permissions[]" value="users">
+                                                <label for="permUsers">Manage Users</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-help">Select what this admin can manage</div>
+                                    </div>
+                                </div>
+
+                                <!-- Profile Image -->
+                                <div class="form-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-image"></i>
+                                        Profile Image
+                                    </h3>
+                                    
+                                    <div class="image-upload-container">
+                                        <div class="image-preview" id="imagePreview">
+                                            <i class="fas fa-user"></i>
+                                            <span>No image selected</span>
+                                        </div>
+                                        <input type="file" id="profileImage" name="profileImage" class="image-input" accept="image/*">
+                                        <label for="profileImage" class="image-upload-btn">
+                                            <i class="fas fa-upload"></i>
+                                            Choose Image
+                                        </label>
+                                        <div class="form-help">Recommended size: 300x300 pixels</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="history.back()">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Create Admin
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="/assets/js/modern-admin.js"></script>
+    <script>
+        // Show/hide security answer field
+        document.getElementById('securityQuestion')?.addEventListener('change', function() {
+            const answerGroup = document.getElementById('securityAnswerGroup');
+            if (this.value) {
+                answerGroup.style.display = 'block';
+            } else {
+                answerGroup.style.display = 'none';
+            }
+        });
+
+        // Password visibility toggle
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = input.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Image preview
+        document.getElementById('profileImage')?.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form validation
+        document.getElementById('adminForm')?.addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const email = document.getElementById('email').value;
+            
+            // Check password match
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                AdminPanel.showNotification('Passwords do not match', 'error');
+                return false;
+            }
+            
+            // Check password strength
+            if (password.length < 8) {
+                e.preventDefault();
+                AdminPanel.showNotification('Password must be at least 8 characters long', 'error');
+                return false;
+            }
+            
+            // Check email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                e.preventDefault();
+                AdminPanel.showNotification('Please enter a valid email address', 'error');
+                return false;
+            }
+        });
+
+        // Role-based permission updates
+        document.getElementById('role')?.addEventListener('change', function() {
+            const role = this.value;
+            const permAdmins = document.getElementById('permAdmins');
+            
+            if (role === 'super') {
+                permAdmins.checked = true;
+                permAdmins.disabled = true;
+            } else {
+                permAdmins.disabled = false;
+            }
+        });
+    </script>
+<%- include('../modern-footer') %>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category - Blog Admin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/modern-admin.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-cube"></i>
+                <span>Blog Admin</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/view-admin" class="nav-link">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Manage Admins</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/blog/view-blog" class="nav-link">
+                        <i class="fas fa-blog"></i>
+                        <span>Manage Blogs</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/category/view-category" class="nav-link">
+                        <i class="fas fa-tags"></i>
+                        <span>Manage Categories</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/user/blogs" class="nav-link">
+                        <i class="fas fa-eye"></i>
+                        <span>View Public</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">Add Category</h1>
+            </div>
+            <div class="nav-right">
+                <div class="user-menu">
+                    <div class="user-info">
+                        <img src="<%= admin && admin.profileImage ? admin.profileImage : '/uploads/admins/seed-default.png' %>" alt="Profile" class="user-avatar">
+                        <span class="user-name"><%= admin ? admin.firstName + ' ' + admin.lastName : 'Admin' %></span>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="/admin/change-password" class="dropdown-item">
+                            <i class="fas fa-key"></i> Change Password
+                        </a>
+                        <a href="/admin/logout" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="header-content">
+                    <div class="header-text">
+                        <h2 class="page-subtitle">Create New Category</h2>
+                        <p class="page-description">Add a new category to organize your blog content</p>
+                    </div>
+                    <div class="header-actions">
+                        <a href="/category/view-category" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Categories
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Container -->
+            <div class="form-container">
+                <div class="form-card">
+                    <form action="/category/insert-category-data" method="POST" enctype="multipart/form-data" id="categoryForm">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <!-- Basic Information -->
+                                <div class="form-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-info-circle"></i>
+                                        Basic Information
+                                    </h3>
+                                    
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">Category Name *</label>
+                                        <input type="text" id="name" name="name" class="form-control" required>
+                                        <div class="form-help">Enter a descriptive name for the category</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea id="description" name="description" class="form-control" rows="4" placeholder="Describe what this category is about..."></textarea>
+                                        <div class="form-help">Provide a brief description to help users understand the category</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="slug" class="form-label">URL Slug</label>
+                                        <input type="text" id="slug" name="slug" class="form-control" placeholder="auto-generated">
+                                        <div class="form-help">URL-friendly version of the category name (optional)</div>
+                                    </div>
+                                </div>
+
+                                <!-- SEO Settings -->
+                                <div class="form-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-search"></i>
+                                        SEO Settings
+                                    </h3>
+                                    
+                                    <div class="form-group">
+                                        <label for="metaTitle" class="form-label">Meta Title</label>
+                                        <input type="text" id="metaTitle" name="metaTitle" class="form-control">
+                                        <div class="form-help">Title for search engines (leave empty to use category name)</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="metaDescription" class="form-label">Meta Description</label>
+                                        <textarea id="metaDescription" name="metaDescription" class="form-control" rows="3"></textarea>
+                                        <div class="form-help">Description for search engines (recommended: 150-160 characters)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <!-- Settings -->
+                                <div class="form-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-cog"></i>
+                                        Settings
+                                    </h3>
+                                    
+                                    <div class="form-group">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select id="status" name="status" class="form-select">
+                                            <option value="active">Active</option>
+                                            <option value="inactive">Inactive</option>
+                                        </select>
+                                        <div class="form-help">Control category visibility</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="sortOrder" class="form-label">Sort Order</label>
+                                        <input type="number" id="sortOrder" name="sortOrder" class="form-control" value="0" min="0">
+                                        <div class="form-help">Lower numbers appear first</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="parentCategory" class="form-label">Parent Category</label>
+                                        <select id="parentCategory" name="parentCategory" class="form-select">
+                                            <option value="">No Parent</option>
+                                            <!-- Parent categories will be populated by JavaScript -->
+                                        </select>
+                                        <div class="form-help">Create a hierarchical structure</div>
+                                    </div>
+                                </div>
+
+                                <!-- Category Image -->
+                                <div class="form-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-image"></i>
+                                        Category Image
+                                    </h3>
+                                    
+                                    <div class="image-upload-container">
+                                        <div class="image-preview" id="imagePreview">
+                                            <i class="fas fa-image"></i>
+                                            <span>No image selected</span>
+                                        </div>
+                                        <input type="file" id="profileImage" name="profileImage" class="image-input" accept="image/*">
+                                        <label for="profileImage" class="image-upload-btn">
+                                            <i class="fas fa-upload"></i>
+                                            Choose Image
+                                        </label>
+                                        <div class="form-help">Recommended size: 400x300 pixels</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="history.back()">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Create Category
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="/assets/js/modern-admin.js"></script>
+    <script>
+        // Auto-generate slug from name
+        document.getElementById('name')?.addEventListener('input', function() {
+            const slug = this.value
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+            document.getElementById('slug').value = slug;
+        });
+
+        // Image preview
+        document.getElementById('profileImage')?.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form validation
+        document.getElementById('categoryForm')?.addEventListener('submit', function(e) {
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                e.preventDefault();
+                AdminPanel.showNotification('Category name is required', 'error');
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>

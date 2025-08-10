@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <title>
+    Admin Console
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Tailwick Theme CSS -->
+  <link href="/assets/css/tailwick-theme.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="sidebar-title">Admin Console</div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Main</div>
+          <div class="nav-item">
+            <a href="/admin/dashboard" class="nav-link" data-page="dashboard">
+              <div class="nav-icon">
+                <i class="fas fa-chart-pie"></i>
+              </div>
+              <span>Dashboard</span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Management</div>
+          <div class="nav-item">
+            <a href="/admin/view-admin" class="nav-link" data-page="admins">
+              <div class="nav-icon">
+                <i class="fas fa-users-cog"></i>
+              </div>
+              <span>Admins</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a href="/category/view-category" class="nav-link" data-page="categories">
+              <div class="nav-icon">
+                <i class="fas fa-tags"></i>
+              </div>
+              <span>Categories</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a href="/blog/view-blog" class="nav-link" data-page="blogs">
+              <div class="nav-icon">
+                <i class="fas fa-blog"></i>
+              </div>
+              <span>Blog Posts</span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Account</div>
+          <div class="nav-item">
+            <a href="/admin/change-password" class="nav-link" data-page="password">
+              <div class="nav-icon">
+                <i class="fas fa-key"></i>
+              </div>
+              <span>Change Password</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a href="/admin/logout" class="nav-link">
+              <div class="nav-icon">
+                <i class="fas fa-sign-out-alt"></i>
+              </div>
+              <span>Logout</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+      <!-- Top Navigation -->
+      <nav class="top-nav">
+        <div class="nav-left">
+          <button class="sidebar-toggle" id="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="breadcrumb">
+            <span class="breadcrumb-item">Admin</span>
+            <i class="fas fa-chevron-right" style="font-size: 0.75rem; margin: 0 0.5rem;"></i>
+            <span class="breadcrumb-item active">Dashboard</span>
+          </div>
+        </div>
+        
+        <div class="nav-right">
+          <div class="user-menu">
+            <div class="user-avatar">
+              <% if (typeof admin !== 'undefined' && admin) { %>
+                <%= admin.firstName.charAt(0).toUpperCase() %>
+              <% } else { %>
+                A
+              <% } %>
+            </div>
+            <div>
+              <div style="font-size: 0.875rem; font-weight: 500; color: var(--text-primary);">
+                <% if (typeof admin !== 'undefined' && admin) { %>
+                  <%= admin.firstName %> <%= admin.lastName %>
+                <% } else { %>
+                  Admin
+                <% } %>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Administrator</div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      
+      <!-- Page Content -->
+      <div class="page-content">

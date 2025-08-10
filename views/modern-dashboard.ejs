@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Dashboard - Blog Admin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/modern-admin.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-cube"></i>
+                <span>Blog Admin</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="/" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/view-admin" class="nav-link">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Manage Admins</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/blog/view-blog" class="nav-link">
+                        <i class="fas fa-blog"></i>
+                        <span>Manage Blogs</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/category/view-category" class="nav-link">
+                        <i class="fas fa-tags"></i>
+                        <span>Manage Categories</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">Dashboard</h1>
+            </div>
+            <div class="nav-right">
+                <div class="user-menu">
+                    <div class="user-info">
+                        <img src="/uploads/admins/seed-default.png" alt="Profile" class="user-avatar">
+                        <span class="user-name">Admin User</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 class="stats-number" id="adminCount">8</h3>
+                            <p class="stats-label">Total Admins</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 class="stats-number" id="categoryCount">24</h3>
+                            <p class="stats-label">Categories</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-blog"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 class="stats-number" id="blogCount">156</h3>
+                            <p class="stats-label">Blog Posts</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 class="stats-number" id="totalViews">12.5K</h3>
+                            <p class="stats-label">Total Views</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Blog Performance</h3>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="lineChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Category Distribution</h3>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="pieChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="quick-actions-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-bolt"></i>
+                                Quick Actions
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-actions-grid">
+                                <button class="quick-action-btn" onclick="window.location.href='/blog/add-blog'">
+                                    <i class="fas fa-plus"></i>
+                                    <span>New Blog Post</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="window.location.href='/category/add-category'">
+                                    <i class="fas fa-tag"></i>
+                                    <span>Add Category</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="AdminPanel.showNotification('Feature coming soon!', 'info')">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>View Analytics</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="AdminPanel.showNotification('Settings updated!', 'success')">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Settings</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+     <script src="/assets/js/modern-admin.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load stats via existing code
+            // Load performance charts
+            fetch('/api/blog-performance').then(r => r.json()).then(data => {
+                const lineCtx = document.getElementById('lineChart').getContext('2d');
+                new Chart(lineCtx, {
+                  type: 'line',
+                  data: {
+                    labels: data.line.labels,
+                    datasets: [{
+                      label: 'Published Posts',
+                      data: data.line.data,
+                      borderColor: '#007bff',
+                      backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                      tension: 0.3,
+                      fill: true,
+                      borderWidth: 2,
+                      pointRadius: 3
+                    }]
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                  }
+                });
+
+                const pieCtx = document.getElementById('pieChart').getContext('2d');
+                new Chart(pieCtx, {
+                  type: 'doughnut',
+                  data: {
+                    labels: data.pie.labels,
+                    datasets: [{
+                      data: data.pie.data,
+                      backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8', '#6f42c1']
+                    }]
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                  }
+                });
+            }).catch(() => {
+                // fallback silently
+            });
+        });
+    </script>
+
+    <style>
+        .stats-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .stats-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .stats-card:nth-child(1) .stats-icon { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .stats-card:nth-child(2) .stats-icon { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .stats-card:nth-child(3) .stats-icon { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .stats-card:nth-child(4) .stats-icon { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+
+        .stats-number {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+            color: #333;
+        }
+
+        .stats-label {
+            margin: 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .chart-card, .quick-actions-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+            height: 100%;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .card-title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            color: #007bff;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .chart-body {
+            padding: 24px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .quick-action-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .quick-action-btn:hover {
+            background: #007bff;
+            border-color: #007bff;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .quick-action-btn i {
+            font-size: 24px;
+        }
+
+        .quick-action-btn span {
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+        }
+    </style>
+</body>
+</html> 
